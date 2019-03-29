@@ -1,0 +1,80 @@
+stages:
+  - deploy
+
+image: ${DOCKER_DEPLOY_IMAGE_NAME}:${DOCKER_DEPLOY_IMAGE_TAG}
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  STACK: confluent
+  IMAGE_TAG: latest
+
+deploy-supporting-branch-develop:
+  stage: deploy
+  variables:
+    SSH_REMOTE: ${DEV_SSH_REMOTE}
+    SERVICES_TO_CHECK: ${STACK}_${CI_PROJECT_NAME}
+    COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.dev.yml
+  script:
+    - >
+      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER_0=${KAFKA_SERVER_0}
+      KAFKA_SERVER_1=${KAFKA_SERVER_1} KAFKA_SERVER_2=${KAFKA_SERVER_2} KAFKA_VERSION=${KAFKA_VERSION}
+  environment:
+    name: dev
+  only:
+    - branches
+  except:
+    - master
+  when: manual
+
+deploy-stable-branch-develop:
+  stage: deploy
+  variables:
+    SSH_REMOTE: ${DEV_SSH_REMOTE}
+    SERVICES_TO_CHECK: ${STACK}_${CI_PROJECT_NAME}
+    COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.dev.yml
+  script:
+    - >
+      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER_0=${KAFKA_SERVER_0}
+      KAFKA_SERVER_1=${KAFKA_SERVER_1} KAFKA_SERVER_2=${KAFKA_SERVER_2} KAFKA_VERSION=${KAFKA_VERSION}
+  environment:
+    name: dev
+  only:
+    - master
+  when: manual
+
+deploy-supporting-branch-production:
+  stage: deploy
+  variables:
+    SSH_REMOTE: ${PRO_SSH_REMOTE}
+    SERVICES_TO_CHECK: ${STACK}_${CI_PROJECT_NAME}
+    COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.prod.yml
+  script:
+     - >
+      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER_0=${KAFKA_SERVER_0}
+      KAFKA_SERVER_1=${KAFKA_SERVER_1} KAFKA_SERVER_2=${KAFKA_SERVER_2} KAFKA_VERSION=${KAFKA_VERSION}
+  environment:
+    name: pro
+  only:
+    - branches
+  except:
+    - master
+  when: manual
+
+deploy-stable-branch-production:
+  stage: deploy
+  variables:
+    SSH_REMOTE: ${PRO_SSH_REMOTE}
+    SERVICES_TO_CHECK: ${STACK}_${CI_PROJECT_NAME}
+    COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.prod.yml
+  script:
+     - >
+      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER_0=${KAFKA_SERVER_0}
+      KAFKA_SERVER_1=${KAFKA_SERVER_1} KAFKA_SERVER_2=${KAFKA_SERVER_2} KAFKA_VERSION=${KAFKA_VERSION}
+  environment:
+    name: pro
+  only:
+    - master
+  when: manual
