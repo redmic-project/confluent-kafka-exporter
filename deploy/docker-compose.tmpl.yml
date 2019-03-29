@@ -4,12 +4,12 @@ services:
   kafka-exporter:
     image: ${IMAGE_NAME:-danielqsj/kafka-exporter}:${IMAGE_TAG:-latest}
     command:
-      - kafka.server=${KAFKA_SERVER_0}
-      - kafka.server=${KAFKA_SERVER_1}
-      - kafka.server=${KAFKA_SERVER_2}
-      - kafka.version=${KAFKA_VERSION}
-      - web.listen-address=${PORT}
-      - log.level=${LOG_LEVEL}
+      - --kafka.server=${KAFKA_SERVER_0}
+      - --kafka.server=${KAFKA_SERVER_1}
+      - --kafka.server=${KAFKA_SERVER_2}
+      - --kafka.version=${KAFKA_VERSION}
+      - --web.listen-address=${PORT}
+      - --log.level=${LOG_LEVEL}
     networks:
       - kafka-net
       - metric-net
