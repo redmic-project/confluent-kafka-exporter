@@ -19,8 +19,8 @@ deploy-supporting-branch-develop:
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.dev.yml
   script:
     - >
-      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER=${KAFKA_SERVER}
-      KAFKA_VERSION=${KAFKA_VERSION}
+      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER_0=${KAFKA_SERVER_0}
+      KAFKA_SERVER_1=${KAFKA_SERVER_1} KAFKA_SERVER_2=${KAFKA_SERVER_2} KAFKA_VERSION=${KAFKA_VERSION}
   environment:
     name: dev
   only:
@@ -37,8 +37,8 @@ deploy-stable-branch-develop:
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.dev.yml
   script:
     - >
-      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER=${KAFKA_SERVER}
-      KAFKA_VERSION=${KAFKA_VERSION}
+      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER_0=${KAFKA_SERVER_0}
+      KAFKA_SERVER_1=${KAFKA_SERVER_1} KAFKA_SERVER_2=${KAFKA_SERVER_2} KAFKA_VERSION=${KAFKA_VERSION}
   environment:
     name: dev
   only:
@@ -53,8 +53,8 @@ deploy-supporting-branch-production:
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.prod.yml
   script:
      - >
-      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER=${KAFKA_SERVER}
-      KAFKA_VERSION=${KAFKA_VERSION}
+      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER_0=${KAFKA_SERVER_0}
+      KAFKA_SERVER_1=${KAFKA_SERVER_1} KAFKA_SERVER_2=${KAFKA_SERVER_2} KAFKA_VERSION=${KAFKA_VERSION}
   environment:
     name: pro
   only:
@@ -71,8 +71,8 @@ deploy-stable-branch-production:
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.prod.yml
   script:
      - >
-      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER=${KAFKA_SERVER}
-      KAFKA_VERSION=${KAFKA_VERSION}
+      deploy.sh IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE} KAFKA_SERVER_0=${KAFKA_SERVER_0}
+      KAFKA_SERVER_1=${KAFKA_SERVER_1} KAFKA_SERVER_2=${KAFKA_SERVER_2} KAFKA_VERSION=${KAFKA_VERSION}
   environment:
     name: pro
   only:
