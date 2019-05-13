@@ -14,7 +14,7 @@ services:
       - kafka-net
       - metric-net
     healthcheck:
-      test: wget --spider http://localhost:${PORT}
+      test: wget --spider -q http://localhost:${PORT}
       interval: 30s
       timeout: 10s
       retries: 3
@@ -28,9 +28,10 @@ services:
       resources:
         limits:
           cpus: '0.5'
-          memory: 256M
+          memory: 64M
         reservations:
-          memory: 205M
+          cpus: '0.001'
+          memory: 32M
 
 networks:
   kafka-net:
