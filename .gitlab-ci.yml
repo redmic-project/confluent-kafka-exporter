@@ -6,14 +6,6 @@ include:
 stages:
   - deploy
 
-variables:
-  STACK: confluent
-  IMAGE_NAME: danielqsj/kafka-exporter
-  IMAGE_TAG: latest
-
-
 .deploy:
-  script:
-    - >
-      deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} KAFKA_SERVER_0=${KAFKA_SERVER_0}
-      KAFKA_SERVER_1=${KAFKA_SERVER_1} KAFKA_SERVER_2=${KAFKA_SERVER_2} KAFKA_VERSION=${KAFKA_VERSION}
+  variables:
+    STACK: confluent
